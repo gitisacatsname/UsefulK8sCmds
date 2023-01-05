@@ -1,5 +1,8 @@
 # Kubernetes and Tanzu useful commands
 
+## Get reason (event) why any pod is not state running
+kubectl get po --all-namespaces | awk '{if ($4 != "Running") system ("echo ""; echo " $2 "; kubectl get events --field-selector involvedObject.name=" $2 " -n " $1 "")}'
+
 ## Delete all error Pods now and force it
 kubectl get pods -A | awk '{if ($4 != "Running") system ("kubectl -n " $1 " delete pods " $2 " --grace-period=0 " " --force ")}'
 
