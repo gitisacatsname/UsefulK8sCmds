@@ -23,7 +23,7 @@
 ## Create node with bigger container image storage in tanzu by editing TKC object
 https://docs.vmware.com/en/VMware-vSphere/7.0/vmware-vsphere-with-tanzu/GUID-B1034373-8C38-4FE2-9517... there is a yaml sample ending with
 
-``yaml
+```yaml
 workers:
   count: 3
   class: best-effort-medium
@@ -32,4 +32,4 @@ workers:
     - name: containerd
       mountPath: /var/lib/containerd
       capacity:
-        storage: 16Gi``
+        storage: 16Gi```
