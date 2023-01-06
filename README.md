@@ -51,6 +51,31 @@ workers:
         storage: 16Gi 
 ```
 
+## pause reconciliation of kapp, reinstall component to force update
+
+learningcenter is not rebuild when running update on tap full profile
+can be used to reinstall learningcenter after install of full profile in tap
+
+first pause using command below
+
+then uninstall ```tanzu package installed delete learningcenter-workshops -n tap-install```
+
+run install command or update to reload values file
+
+```tanzu package installed update tap -p tap.tanzu.vmware.com -v 1.3.4 --values-file tap.yml -n tap-install```
+
+```bash
+kubectl patch pkgi tap -n tap-install -p '{"spec":{"paused":true}}' --type=merge
+kubectl patch pkgi tap-gui -n tap-install -p '{"spec":{"paused":true}}' --type=merge
+```
+
+## unpause reconciliation of kapp
+
+```bash
+kubectl patch pkgi tap -n tap-install -p '{"spec":{"paused":true}}' --type=merge
+kubectl patch pkgi tap-gui -n tap-install -p '{"spec":{"paused":true}}' --type=merge
+```
+
 ## list all fonts in toilet
 
 ```bash
