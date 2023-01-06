@@ -30,7 +30,7 @@ sudo apt install toilet figlet cowsay fortune -y
 ```
 
 ```bash
-while true;do;clear;toilet  -t -f bigmono12 --filter metal `kubectl get pods -A |  awk '{if ($4 != "Running") system ("echo ""; echo " $2 "; kubectl get events -o custom-columns=FirstSeen:.firstTimestamp,LastSeen:.lastTimestamp,Count:.count,From:.source.component,Type:.type,Reason:.reason,Message:.message --field-selector involvedObject.name=" $2 " -n " $1 " | tail -1")}' | grep Pulling | wc -l` imgs pulling;fortune | cowsay | toilet  -t -f smbraille ;sleep 30;done
+while true;do;clear;toilet  -t -f bigmono12 --filter metal `kubectl get pods -A | tail -n +2 |  awk '{if ($4 != "Running") system ("echo ""; echo " $2 "; kubectl get events -o custom-columns=FirstSeen:.firstTimestamp,LastSeen:.lastTimestamp,Count:.count,From:.source.component,Type:.type,Reason:.reason,Message:.message --field-selector involvedObject.name=" $2 " -n " $1 " | tail -1")}' | grep Pulling | wc -l` imgs pulling;fortune | cowsay | toilet  -t -f smbraille ;sleep 30;done
 ```
 
 ![image](https://user-images.githubusercontent.com/94610393/211031776-8768bcac-9cac-4d2d-94a8-874ebddb2272.png)
