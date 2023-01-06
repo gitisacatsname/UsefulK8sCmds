@@ -78,6 +78,47 @@ kubectl patch pkgi tap -n tap-install -p '{"spec":{"paused":true}}' --type=merge
 kubectl patch pkgi tap-gui -n tap-install -p '{"spec":{"paused":true}}' --type=merge
 ```
 
+## tap docker patch to build docs in gui - pause reconciliation first as shown above - or it will reset.
+
+```yaml
+spec:
+  template:
+    spec:
+      containers:
+      - command:
+        - dockerd
+        - --host
+        - tcp://127.0.0.1:2375
+        image: docker:dind-rootless
+        imagePullPolicy: IfNotPresent
+        name: dind-daemon
+        resources: {}
+        securityContext:
+          privileged: true
+          runAsUser: 0
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /tmp
+          name: tmp
+        - mountPath: /output
+          name: output
+      - name: backstage
+        env:
+        - name: DOCKER_HOST
+          value: tcp://localhost:2375
+        volumeMounts:
+        - mountPath: /tmp
+          name: tmp
+        - mountPath: /output
+          name: output
+      volumes:
+      - emptyDir: {}
+        name: tmp
+      - emptyDir: {}
+        name: output%                                         
+```
+
 ## list all fonts in toilet
 
 ```bash
