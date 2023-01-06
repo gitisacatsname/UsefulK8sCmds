@@ -134,6 +134,83 @@ spec:
         name: output%                                         
 ```
 
+## tap full profile with ext certs
+
+```yaml
+shared:
+  ingress_domain: "k8s.fullauto.cloud"
+  image_registry:
+    project_path: "harbor.k8s.fullauto.cloud/tap/supply-chain"
+    username: "admin"
+    password: "VMware1!"
+  kubernetes_distribution: "" # To be passed only for OpenShift. Defaults to "".
+  ca_cert_data: |
+      -----BEGIN CERTIFICATE-----
+      MIIDKDCCAhCgAwIBAgIQZbZZRefGKAKTJmuWc86FmjANBgkqhkiG9w0BAQsFADAU
+      DwmZTI9cZ942hT+pqsGrak0zXrbfOeTgnju00000QR93ERQMGTt6GdelTuw=
+      -----END CERTIFICATE-----
+
+ceip_policy_disclosed: true # Installation fails if this is not set to true. Not a string.
+
+#The above keys are minimum numbers of entries needed in tap-values.yaml to get a functioning TAP Full profile installation.
+
+#Below are the keys which may have default values set, but can be overridden.
+
+profile: full # Can take iterate, build, run, view.
+
+excluded_packages:
+- policy.apps.tanzu.vmware.com
+
+supply_chain: testing_scanning # Can take testing, testing_scanning.
+
+contour:
+  envoy:
+    service:
+      type: LoadBalancer # This is set by default, but can be overridden by setting a different value.
+
+buildservice:
+  kp_default_repository: "harbor.k8s.fullauto.cloud/tap/build-service"
+  kp_default_repository_username: "admin"
+  kp_default_repository_password: "VMware1!"
+
+tap_gui:
+  app_config:
+    catalog:
+      locations:
+        - type: url
+          target: https://github.com/gitisapetssname/catalog/blob/main/catalog-info.yaml
+  service_type: ClusterIP # If the shared.ingress_domain is set as above, this must be set to ClusterIP.
+  tls:
+    namespace: tap-gui
+    secretName: tap-gui-cert
+    
+learningcenter:
+  ingressSecret:
+    certificate: |
+      -----BEGIN CERTIFICATE-----
+      MIIEEjCCAvqgAwIBAgIUfNVt9/PHPy408ZALujiFBMjJQu0wDQYJKoZIhvcNAQEL
+      BQAwgY8xCzAJBgNVBAYTAkRFMQ8wDQYDVQQIDAZIZXNzZW4xDzANBgNVBAcMBk11
+      r0Kmbitm56tW61Dod9GV9zayJOCVK8WCuGAu4r+szqZNq31Ophg=
+      -----END CERTIFICATE-----
+    privateKey:  |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEowIBAAKCAQE00000N2w6K6MApTh0QdYra4aDxH2abO9u1Z9UEPYv4fPb
+      GogeBLt97ragEisO5hu0ZII40pkqvDAW5rdU0000000oJ19pKUZk
+      -----END RSA PRIVATE KEY-----
+
+metadata_store:
+  ns_for_export_app_cert: "dev"
+  app_service_type: ClusterIP # Defaults to `LoadBalancer`. If `shared.ingress_domain` is set as above, this must be set to `ClusterIP`.
+
+scanning:
+  metadataStore:
+    url: "" # Configuration is moved, so set this string to empty.
+
+grype:
+  namespace: "dev"
+  targetImagePullSecret: "regcred"
+```
+
 ## list all fonts in toilet
 
 ```bash
