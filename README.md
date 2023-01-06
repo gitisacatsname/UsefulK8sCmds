@@ -89,6 +89,11 @@ kubectl patch pkgi tap-gui -n tap-install -p '{"spec":{"paused":true}}' --type=m
 kubectl patch deploy server -n tap-gui --patch-file tap-gui-dind-patch.yaml
 ```
 
+delete gui pods
+```bash
+kubectl delete pod -l app=backstage -n tap-gui
+```
+
 tap-gui-dind-patch.yaml:
 ```yaml
 spec:
