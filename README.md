@@ -33,3 +33,14 @@ workers:
       capacity:
         storage: 16Gi 
 ```
+
+## list all fonts in toilet
+
+```bash
+for f in /usr/share/figlet/* 
+do 
+  fs=$(basename $f)
+  fname=${fs%%.tlf}
+  toilet -f $fname $fname
+done
+```
