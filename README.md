@@ -17,8 +17,8 @@ kubectl get pods -A | awk '{if ($4 != "Running") system ("kubectl -n " $1 " dele
 watch -n 0.5 kubectl get pods -A
 ```
 
-## Force cluster recreation Tanzu e.g. after updating ca in TKC object
-### It adds a date based annotation which counts as changing the tkc object so cluster will gracefully reinit
+## Force cluster recreation on Tanzu e.g. after updating ca in TKC object
+### It adds a date based annotation which counts as changing the tkc object so cluster will gracefully rebuild
 ```bash
 kubectl patch tkc tapmeifyoucan --type merge -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"date\":\"`date +'%s'`\"}}}}}"
 ```
@@ -36,7 +36,7 @@ while true;do;clear;toilet  -t -f bigmono12 --filter metal `kubectl get pods -A 
 ![image](https://user-images.githubusercontent.com/94610393/211031776-8768bcac-9cac-4d2d-94a8-874ebddb2272.png)
 
 
-## Create node with bigger container image storage in tanzu by editing TKC object
+## Create node with bigger container image storage in tanzu by editing TKC object, useful if exp. disk pressure on low count vertical node setup with big container images
 
 ```yaml
 workers:
