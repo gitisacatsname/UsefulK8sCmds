@@ -85,6 +85,11 @@ kubectl patch pkgi tap-gui -n tap-install -p '{"spec":{"paused":true}}' --type=m
 
 ## tap docker patch to build docs in gui - pause reconciliation first as shown above - or it will reset by kapp - use with care
 
+```bash
+kubectl patch deploy server -n tap-gui --patch-file tap-gui-dind-patch.yaml
+```
+
+tap-gui-dind-patch.yaml:
 ```yaml
 spec:
   template:
