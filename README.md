@@ -32,4 +32,5 @@ workers:
     - name: containerd
       mountPath: /var/lib/containerd
       capacity:
-        storage: 16Gi ```
+        storage: 16Gi 
+```
