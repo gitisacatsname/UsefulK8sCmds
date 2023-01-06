@@ -78,7 +78,7 @@ kubectl patch pkgi tap -n tap-install -p '{"spec":{"paused":true}}' --type=merge
 kubectl patch pkgi tap-gui -n tap-install -p '{"spec":{"paused":true}}' --type=merge
 ```
 
-## tap docker patch to build docs in gui - pause reconciliation first as shown above - or it will reset.
+## tap docker patch to build docs in gui - pause reconciliation first as shown above - or it will reset by kapp - use with care
 
 ```yaml
 spec:
