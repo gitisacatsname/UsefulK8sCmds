@@ -4,11 +4,11 @@
 kubectl get pods -A | awk '{if ($4 != "Running") system ("echo ""; echo " $2 "; kubectl get events -o custom-columns=FirstSeen:.firstTimestamp,LastSeen:.lastTimestamp,Count:.count,From:.source.component,Type:.type,Reason:.reason,Message:.message --field-selector involvedObject.name=" $2 " -n " $1 " | tail -1")}'
 
 
-## Agressive force deletion of all Pods not currently "Running"
+## Agressive force deletion of all pods not currently "Running"
 kubectl get pods -A | awk '{if ($4 != "Running") system ("kubectl -n " $1 " delete pods " $2 " --grace-period=0 " " --force ")}'
 
 
-## Watch all Pods in "realtime"
+## Watch all pods in "realtime"
 watch -n 0.5 kubectl get pods -A
 
 
