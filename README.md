@@ -18,7 +18,4 @@ kubectl patch tkc tapmeifyoucan --type merge -p "{\"spec\":{\"template\":{\"meta
 
 
 ## Display "pulling images" left on cluster - big enough to sit on the couch. toilet required. yep toilet is a cmd line tool.
-while true
-do
-toilet -f bigascii12 `kubectl get pods -A |  awk '{if ($4 != "Running") system ("echo ""; echo " $2 "; kubectl get events -o custom-columns=FirstSeen:.firstTimestamp,LastSeen:.lastTimestamp,Count:.count,From:.source.component,Type:.type,Reason:.reason,Message:.message --field-selector involvedObject.name=" $2 " -n " $1 " | tail -1")}' | grep Pulling | wc -l` images currently pulling;sleep 10
-done
+while true;do;toilet -f bigascii12 `kubectl get pods -A |  awk '{if ($4 != "Running") system ("echo ""; echo " $2 "; kubectl get events -o custom-columns=FirstSeen:.firstTimestamp,LastSeen:.lastTimestamp,Count:.count,From:.source.component,Type:.type,Reason:.reason,Message:.message --field-selector involvedObject.name=" $2 " -n " $1 " | tail -1")}' | grep Pulling | wc -l` images currently pulling;sleep 10;done
