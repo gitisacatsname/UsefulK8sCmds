@@ -19,3 +19,17 @@
 
 ## Display "pulling images" left on cluster - big enough to sit on the couch. toilet required. yep toilet is a cmd line tool.
 ``while true;do;toilet -f bigascii12 `kubectl get pods -A |  awk '{if ($4 != "Running") system ("echo ""; echo " $2 "; kubectl get events -o custom-columns=FirstSeen:.firstTimestamp,LastSeen:.lastTimestamp,Count:.count,From:.source.component,Type:.type,Reason:.reason,Message:.message --field-selector involvedObject.name=" $2 " -n " $1 " | tail -1")}' | grep Pulling | wc -l` images currently pulling;sleep 10;done``
+
+## Create node with bigger container image storage in tanzu by editing TKC object
+https://docs.vmware.com/en/VMware-vSphere/7.0/vmware-vsphere-with-tanzu/GUID-B1034373-8C38-4FE2-9517... there is a yaml sample ending with
+
+``
+workers:
+  count: 3
+  class: best-effort-medium
+  storageClass: vwt-storage-policy
+  volumes:
+    - name: containerd
+      mountPath: /var/lib/containerd
+      capacity:
+        storage: 16Gi``
