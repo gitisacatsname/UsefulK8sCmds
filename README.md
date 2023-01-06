@@ -55,15 +55,20 @@ workers:
 
 learningcenter is not rebuild when running update on tap full profile - can be used to reinstall learningcenter after install of full profile in tap
 
-first pause using command below
-
+first pause
 ```bash
 kubectl patch pkgi tap -n tap-install -p '{"spec":{"paused":true}}' --type=merge
 ```
 
-then uninstall ```bash tanzu package installed delete learningcenter-workshops -n tap-install```
+then uninstall 
+```bash 
+tanzu package installed delete learningcenter-workshops -n tap-install
+```
 
-run install command or update to reload values file ```bash tanzu package installed update tap -p tap.tanzu.vmware.com -v 1.3.4 --values-file tap.yml -n tap-install```
+run install command or update to reload values file 
+```bash 
+tanzu package installed update tap -p tap.tanzu.vmware.com -v 1.3.4 --values-file tap.yml -n tap-install
+```
 
 
 ## un/pause reconciliation of kapp
