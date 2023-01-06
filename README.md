@@ -8,6 +8,7 @@ kubectl get pods -A | tail -n +2 | awk '{if ($4 != "Running") system ("echo ""; 
 
 
 ## Agressive force deletion of all pods not currently "Running"
+### You could change Running to Terminating to speedup uninstalling large apps with e.g. kapp, useful for labs
 ```bash
 kubectl get pods -A | tail -n +2 | awk '{if ($4 != "Running") system ("kubectl -n " $1 " delete pods " $2 " --grace-period=0 " " --force ")}'
 ```
