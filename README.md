@@ -142,7 +142,7 @@ shared:
   image_registry:
     project_path: "harbor.k8s.fullauto.cloud/tap/supply-chain"
     username: "admin"
-    password: "VMware1!"
+    password: "Password!"
   kubernetes_distribution: "" # To be passed only for OpenShift. Defaults to "".
   ca_cert_data: |
       -----BEGIN CERTIFICATE-----
@@ -171,7 +171,7 @@ contour:
 buildservice:
   kp_default_repository: "harbor.k8s.fullauto.cloud/tap/build-service"
   kp_default_repository_username: "admin"
-  kp_default_repository_password: "VMware1!"
+  kp_default_repository_password: "Password!"
 
 tap_gui:
   app_config:
