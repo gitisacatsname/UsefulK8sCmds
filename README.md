@@ -2,14 +2,14 @@
 
 ## Get last reason (event) why any pod is not state running
 ```bash
-kubectl get pods -A | awk '{if ($4 != "Running") system ("echo ""; echo " $2 "; kubectl get events -o custom-columns=FirstSeen:.firstTimestamp,LastSeen:.lastTimestamp,Count:.count,From:.source.component,Type:.type,Reason:.reason,Message:.message --field-selector involvedObject.name=" $2 " -n " $1 " | tail -1")}'
+kubectl get pods -A | tail -n +2 | awk '{if ($4 != "Running") system ("echo ""; echo " $2 "; kubectl get events -o custom-columns=FirstSeen:.firstTimestamp,LastSeen:.lastTimestamp,Count:.count,From:.source.component,Type:.type,Reason:.reason,Message:.message --field-selector involvedObject.name=" $2 " -n " $1 " | tail -1")}'
 ```
 ![image](https://user-images.githubusercontent.com/94610393/211031957-d20f1fb6-425c-46f8-afd3-3097a3d47fb8.png)
 
 
 ## Agressive force deletion of all pods not currently "Running"
 ```bash
-kubectl get pods -A | awk '{if ($4 != "Running") system ("kubectl -n " $1 " delete pods " $2 " --grace-period=0 " " --force ")}'
+kubectl get pods -A | tail -n +2 | awk '{if ($4 != "Running") system ("kubectl -n " $1 " delete pods " $2 " --grace-period=0 " " --force ")}'
 ```
 
 ## Watch all pods in "realtime"
