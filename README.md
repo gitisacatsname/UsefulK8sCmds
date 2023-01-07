@@ -139,6 +139,21 @@ spec:
         name: output%                                         
 ```
 
+
+### patch workshop image with cas from node
+
+stop recon. learningcenter workshop patch:
+
+```yaml
+spec:
+  session:
+    env:
+    - name: NODE_EXTRA_CA_CERTS
+      value: "/etc/pki/tls/certs/ca-bundle.crt"
+```
+
+patch dockerincontainer image
+
 ## tap full profile with ext certs
 
 ```yaml
