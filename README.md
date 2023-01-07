@@ -178,6 +178,15 @@ not this path, thats default loc. on photon, might break stuff
 ```
 
 
+```yaml
+    volumeMounts:
+    - name: my-volume
+      mountPath: /app
+  volumes:
+  - name: my-volume
+    hostPath:
+      path: /mnt/vpath  
+```
 
 patch dockerincontainer image
 
