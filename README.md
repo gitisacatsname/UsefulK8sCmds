@@ -13,6 +13,10 @@ kubectl get pods -A | tail -n +2 | awk '{if ($4 != "Running") system ("echo ""; 
 kubectl get pods -A | tail -n +2 | awk '{if ($4 != "Running") system ("kubectl -n " $1 " delete pods " $2 " --grace-period=0 " " --force ")}'
 ```
 
+```bash
+kubectl delete pod --force $(kubectl get pods | grep Terminating | cut -d' ' -f1)
+```
+
 ## Watch all pods in "realtime"
 ```bash
 watch -n 0.5 kubectl get pods -A
