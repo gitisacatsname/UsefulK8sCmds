@@ -154,6 +154,11 @@ spec:
 
 stop recon. learningcenter workshop patch:
 
+```bash 
+kubectl -n <namespace-for-config-map-optional> create configmap ca-pemstore — from-file=my-cert.pem
+```
+
+
 ```yaml
 spec:
   session:
@@ -161,6 +166,18 @@ spec:
     - name: NODE_EXTRA_CA_CERTS
       value: "/etc/pki/tls/certs/ca-bundle.crt"
 ```
+
+not this path, thats default loc. on photon, might break stuff
+
+```yaml
+        volumeMounts:
+        - name: ca-pemstore
+          mountPath: /etc/ssl/certs/my-cert.pem
+          subPath: my-cert.pem
+          readOnly: false
+```
+
+
 
 patch dockerincontainer image
 
