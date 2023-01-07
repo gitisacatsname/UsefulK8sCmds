@@ -166,7 +166,13 @@ spec:
     - name: NODE_EXTRA_CA_CERTS
       value: "/etc/pki/tls/certs/ca-bundle.crt"
 ```
-
+```yaml
+spec:
+  session:
+    env:
+    - name: NODE_TLS_REJECT_UNAUTHORIZED 
+      value: "0"
+```
 not this path, thats default loc. on photon, might break stuff
 
 ```yaml
