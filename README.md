@@ -84,6 +84,16 @@ kubectl patch pkgi tap-gui -n tap-install -p '{"spec":{"paused":false}}' --type=
 ```
 
 ```bash
+kubectl patch pkgi learningcenter -n tap-install -p '{"spec":{"paused":false}}' --type=merge
+kubectl patch pkgi learningcenter-workshops -n tap-install -p '{"spec":{"false":true}}' --type=merge
+```
+
+```bash
+kubectl patch pkgi learningcenter -n tap-install -p '{"spec":{"paused":true}}' --type=merge
+kubectl patch pkgi learningcenter-workshops -n tap-install -p '{"spec":{"paused":true}}' --type=merge
+```
+
+```bash
 kubectl patch pkgi tap -n tap-install -p '{"spec":{"paused":true}}' --type=merge
 kubectl patch pkgi tap-gui -n tap-install -p '{"spec":{"paused":true}}' --type=merge
 ```
